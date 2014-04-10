@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 9;
 use Test::MockTime qw(:all);
 use File::Temp qw/tempfile/;
 use AccessCounter;
@@ -51,14 +51,36 @@ subtest '2nd Day read Test (with reflesh)' => sub{
 };
 
 $accessCounter->addCount();
-subtest '2nd Day add Test' => sub{
+$accessCounter->addCount();
+subtest '2nd Day add 2 count Test' => sub{
  my $data=$accessCounter->refleshData();
 
- is($data->{total}, 2,"total counter must be 2");
- is($data->{day}->[0] , 1,"today counter must be 1");
+ is($data->{total}, 3,"total counter must be 3");
+ is($data->{day}->[0] , 2,"today counter must be 2");
  is($data->{day}->[1] , 1,"yesterday counter must be 1");
- is($data->{updateTime},int(time()/86400-1),"updateTime must be yesterday");
+ is($data->{updateTime},int(time()/86400),"updateTime must be today");
 };
 
+# delete and recreate
+undef($accessCounter);
+close($tempfile);
+
+
+set_fixed_time(86400*2);
+
+open($tempfile,"+<",$tempfilename);
+$accessCounter=AccessCounter->new({
+  saveFile => $tempfile,
+  saveCount => 2
+ });
+
+subtest '3rd read Test when reopened' => sub{
+ my $data=$accessCounter->refleshData();
+
+ is($data->{total}, 3,"total counter must be 3");
+ is($data->{day}->[0] , 0,"today counter must be 0");
+ is($data->{day}->[1] , 2,"yesterday counter must be 2");
+ is($data->{updateTime},int(time()/86400 -1),"updateTime must be yesterday");
+};
 
 close($tempfile);
