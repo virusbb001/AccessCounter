@@ -18,7 +18,6 @@ sub new{
   # 合計カウントを別に保存するか
   saveTotal => 1,
   # n日分あけてカウントをする 
-  # 負数 ならTOTALのみ 
   # 0なら次の日に(デフォルトは0)
   # 1なら今日,明日でまとめて, 明後日,4日後にまとめてカウントをする
   countInterval => 0,
@@ -42,6 +41,7 @@ sub addCount{
  $data->{day}->[0]++;
  $data->{updateTime}=int(time()/86400);
  $this->writeData($data);
+ return $data;
 }
 
 # データ読み込み
