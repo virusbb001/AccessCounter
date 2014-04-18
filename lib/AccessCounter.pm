@@ -118,4 +118,12 @@ sub refleshData{
  return $data;
 }
 
+# デストラクタ
+sub DESTROY{
+ my $this=shift;
+ if(defined($this->{saveFileName})){
+  close($this->{saveFile});
+ }
+}
+
 1;
