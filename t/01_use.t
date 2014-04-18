@@ -65,16 +65,14 @@ subtest '2nd Day add 2 count Test' => sub{
 undef($accessCounter);
 close($tempfile);
 
-
+undef($accessCounter);
 set_fixed_time(86400*2);
 
-open($tempfile,"+<",$tempfilename);
-$accessCounter=AccessCounter->new({
-  saveFile => $tempfile,
-  saveCount => 2
- });
-
-subtest '3rd read Test when reopened' => sub{
+subtest '3rd read Test when reopened (open by file name)' => sub{
+ my $accessCounter=new_ok(AccessCounter => [{
+    saveFile => $tempfilename,
+    saveCount => 2
+   }]);
  my $data=$accessCounter->refleshData();
 
  is($data->{total}, 3,"total counter must be 3");

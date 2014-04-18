@@ -14,6 +14,12 @@ sub new{
  if(!defined($config->{saveFile})){
   croak("saveFile is not defined");
  }
+ if(!ref($config->{saveFile})){
+  my ($fh,$filename);
+  $filename=$config->{saveFile};
+  open($config->{saveFile},"+<",$filename) or croak("File cannot open ${filename} +< mode");
+  $config->{saveFileName}=$filename;
+ }
  my %defaultConfig=(
   # 合計カウントを別に保存するか
   saveTotal => 1,
