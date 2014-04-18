@@ -17,7 +17,7 @@ sub new{
  if(!ref($config->{saveFile})){
   my ($fh,$filename);
   $filename=$config->{saveFile};
-  open($config->{saveFile},"+<",$filename) or croak("File cannot open ${filename} +< mode");
+   open($config->{saveFile},((-e $filename)?"+<":"+>"),$filename) or croak("File cannot open ${filename} +< mode");
   $config->{saveFileName}=$filename;
  }
  my %defaultConfig=(
