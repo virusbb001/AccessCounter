@@ -27,7 +27,7 @@ sub new{
   # 0なら次の日に(デフォルトは0)
   # 1なら今日,明日でまとめて, 明後日,4日後にまとめてカウントをする
   countInterval => 0,
-  # 何回分保存するか
+  # 何回分保存するか(2だったら今日の分とリセット直前の分)
   saveCount => 2
  );
  my %conf=(%defaultConfig,%$config);
@@ -67,6 +67,7 @@ sub readData{
    carp($text,$@);
   }
  }else{
+  # 初期設定
   $data={
    updateTime=>time()
   };
