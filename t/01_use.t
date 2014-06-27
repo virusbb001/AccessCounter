@@ -5,7 +5,6 @@ use Test::More tests => 9;
 use Test::MockTime qw(:all);
 use File::Temp qw/tempfile/;
 use AccessCounter;
-use Data::Dumper;
 
 my ($tempfile,$tempfilename)=tempfile();
 
