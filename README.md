@@ -14,6 +14,7 @@ Perlで作ったアクセスカウンター
 * t/ テストスクリプト
 * LICENSE ライセンス
 * README.md これ
+* sample/ 設置例
 
 # 設定 #
 
@@ -34,6 +35,11 @@ Perlで作ったアクセスカウンター
 * readData(); カウントを更新せず読み出しだけ行う
 * refleshData([data]); dataのデータを更新する(もしなければファイルからデータを読み込む) 更新したものを返す
 * writeData(data); dataをファイルに書き出す
+
+# 使用したモジュール
+
+* Carp
+* JSON::XS
 
 # その他 #
 
