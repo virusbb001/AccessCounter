@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+ <meta charset="UTF-8" />
+ <title>アクセスカウンターの設置ナビゲーション</title>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+<body>
+ <h1>アクセスカウンターの設置ナビゲーション</h1>
+ 設置するファイルから見てファイルを何処に保存しますか？(相対アドレスを入れてください)
+ <input type="text" name="saveFileName" />
+ <br />
+ 合計のアクセス数を保存しますか？
+ <label><input type="radio" name="willSaveAllAccessCount" value="true" />はい</label>
+ <label><input type="radio" name="willSaveAllAccessCount" value="false" />いいえ</label>
+ <br />
+ 何日おきにカウントをリセットしますか？(前述の合計のアクセス数とは違うカウントです．0なら日が変わるごとにリセットされます)．
+ <input type="number" name="resetInterval" value="0" min="0" />
+ <br />
+ カウントを何回分まで保存しますか？(例えば直前の質問に0を指定し，この質問で2を指定すれば当日と前日の分のカウントが保存されます．1なら当日のみです)
+ <input type="number" name="resetInterval" value="1" min="1" />
+ <br />
+ <button id="generateAndCheck" type="button">回答終了</button>
+
+ <div id="result">
+  <div id="success">
+  お疲れ様でした．以下のスクリプトをHTMLのお好みのところに貼り付けてください
+  <br />
+  <textarea id="resultScript" name="resultScript" cols="30" rows="10" readonly></textarea>
+  </div>
+ </div>
+ 
+</body>
+</html>
