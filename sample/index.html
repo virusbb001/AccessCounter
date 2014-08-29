@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
- <meta charset="UTF-8">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+ <meta charset="UTF-8" />
+  <script type="text/javascript" src="/virus/lib/jquery.js"></script>
+  <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
   <script type="text/javascript" src="./javascript/main.js"></script>
  <title>Access Counter Sample</title>
 </head>
 <body>
- Access counter sample html <br />
+ <h1>アクセスカウンター</h1>
+ <h2>サンプル</h2>
+ <div id="updateDay"></div>
  <div id="counter"></div>
+ <h2>使い方</h2>
+ CommandとRを同時に押して更新(Commandキーを押しながらRキーを押せば大丈夫です) <br />
+ 更新させてTODAYとTOTALの数字を増やす <br />
+ 次の日になると自動的にTODAYがYESTERDAYに変わります <br />
+ <h2>作った人</h2>
+ twitter: <a href="https://twitter.com/virusVer001">@virusVer001</a>
+ <h2>ソースコード</h2>
+ <a href="https://github.com/virusbb001/AccessCounter/">https://github.com/virusbb001/AccessCounter/</a>
+ <h3 onclick="$('#VeryLongInstructions').toggle(1000)">具体的にこれは何？(ここをクリックで表示したり消したりします)</h3>
+ <div id="VeryLongInstructions">
+  アクセスカウンターをPerlのモジュールにしたものです <br />
+  アクセスをカウントさせるだけなのでアクセスのログとかは全くとっていません <br /> 
+  情報を保存したいファイル, <br />
+  合計カウント(TOTAL)を保存するか, <br />
+  何日おきに新しくカウントしなおしたいか(TOTALとYESTERDAYなら0日おきとかんがえる 1日おきなら0日目からカウントし始めるとして0日目と1日目を合わせてカウント, 2日目と3日目をまとめてカウント・・・みたいな), <br />
+  何回分保存するか(0日おき指定でTODAYとYESTERDAYなら2回分) <br />
+  を指定して使います <br />
+  他のCGIとかスクリプトに埋め込むことを考えて作りました<br />
+  サンプルはあくまで使用例なので頑張れば画像を使って表示とか1週間のアクセス数をグラフとかにすることができます<br />
+  サンプルは今日と昨日のアクセス数と全体のアクセス数をカウントする設定にしています <br />
+  これらの設定からライブラリを呼び出してメソッドを実行すれば自動的にTOTALとTODAYを増やしたりTODAYをYESTERDAYに移してくれる感じです <br />
+  連続アクセスを判断して加算をしなくさせるとかは別のところでやる必要があります
+  文句とかはgithubのissueとかに書き込むか<a href="https://twitter.com/virusVer001">@virusVer001</a>にリプライください. 善処します
+ </div>
+
+ <h2>今わかってる問題点</h2>
+ 8/28 時刻取得に標準のtime関数を使っているため日本等グリニッジ標準時を使用していない国では正常に動かない <br />
+ 
 </body>
 </html>
