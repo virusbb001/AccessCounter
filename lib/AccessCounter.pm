@@ -2,7 +2,6 @@ package AccessCounter;
 
 use Carp;
 use JSON::XS qw/encode_json decode_json/;
-use Time::Local;
 
 sub new{
  my $pkg=shift;
@@ -46,7 +45,7 @@ sub addCount{
  $this->refleshData($data);
  $data->{total}++;
  $data->{day}->[0]++;
- $data->{updateTime}=int(timelocal(localtime)/86400);
+ $data->{updateTime}=int(time()/86400);
  $this->writeData($data);
  return $data;
 }
@@ -112,7 +111,7 @@ sub refleshData{
   $data=$this->readData();
  }
  my $interval=int(time/86400) - $data->{updateTime};
- my $histnum=int($interval/($data->{countInterval}+1));
+ my $histnum=int($interval/($countInterval+1));
  for(my $i=0;$i<$histnum;$i++){
   unshift(@{$data->{day}},0);
  }
