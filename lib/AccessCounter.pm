@@ -2,6 +2,9 @@ package AccessCounter;
 
 use Carp;
 use JSON::XS qw/encode_json decode_json/;
+use Time::Local;
+
+my $time_offset=timegm(localtime)-timegm(gmtime);
 
 sub new{
  my $pkg=shift;
@@ -45,7 +48,7 @@ sub addCount{
  $this->refleshData($data);
  $data->{total}++;
  $data->{day}->[0]++;
- $data->{updateTime}=int(time()/86400);
+ $data->{updateTime}=time;
  $this->writeData($data);
  return $data;
 }
@@ -69,7 +72,7 @@ sub readData{
  }else{
   # 初期設定
   $data={
-   updateTime=>time()
+   updateTime=>time
   };
   if($this->{"saveTotal"} == 1){
    $data->{"total"}=0;
@@ -110,12 +113,17 @@ sub refleshData{
  if(!defined($data)){
   $data=$this->readData();
  }
- my $interval=int(time/86400) - $data->{updateTime};
+ # 何日経過したか
+ my $interval=int( (time+$time_offset)/86400) - int(($data->{updateTime}+$time_offset)/86400);
  my $histnum=int($interval/($countInterval+1));
  for(my $i=0;$i<$histnum;$i++){
+  # 先頭に追加
   unshift(@{$data->{day}},0);
  }
+ # 削除処理
  splice(@{$data->{day}},$this->{saveCount});
+ # 今日更新したことに
+ $data->{updateTime}=time;
  return $data;
 }
 
